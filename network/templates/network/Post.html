@@ -1,0 +1,144 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block body %}
+
+<h2>All Posts</h2>
+ <div class="modal-body">
+   <form method="post" action="{% url 'addpost'  %}">
+             {% csrf_token %}
+<textarea rows="10" class="form-control" name="textarea"></textarea>
+
+              <div class="modal-footer"><button class="btn btn-outline-dark save" type="submit" value="Create"><i class="fa fa-check-square-o"></i>Create Post</button>
+             </div>
+     </form>
+      </div>
+
+
+
+
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Post</h5>
+          {% for post in posts %}
+
+            <div class="card border-secondary mb-3">
+            <h5 class="card-header"><a href="{% url 'userprofile' username=post.owner %}">{{post.owner}}</a></h5>
+            <div class="card-body text-secondary">
+                <h6 class="card-subtitle mb-2 text-muti">{{post.timestamp}}</h6>
+                <p class="card-text">{{post.post}}</p>
+                 <a href="{% url 'edit'  post.id   %}"><button class="btn btn-outline-dark save"  value="Edit" >Edit</button></a>
+
+             <a href="{% url 'lk'  post.id   %}"><button class="btn btn-outline-dark save" id=lk   value="Like" >Like</button></a>
+
+             <a href="{% url 'unlike'  post.id   %}"><button class="btn btn-outline-dark save" id=lks value="UnLike" >UnLike</button></a>
+
+             <p>Like:{{ll}}</p>
+
+
+
+
+
+
+
+
+              <div>
+              </div>
+              </div>
+            </div>
+              </div>
+    </div>
+{% endfor %}
+
+
+      <div class="d-flex justify-content-end my-3">
+  <nav aria-label="Page navigation ">
+    <ul class="pagination">
+    {% if posts.has_previous %}
+    <li class="page-item">
+      <li class="page-item">
+        <a class="page-link" href="?page={{posts.previous_page_number}}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      {%else%}
+        <li class="page-item">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      {%endif%}
+{% if posts.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{posts.next_page_number}}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+      {%else%}
+       <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+      {%endif%}
+    </ul>
+  </nav>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
